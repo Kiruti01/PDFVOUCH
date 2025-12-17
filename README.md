@@ -1,4 +1,4 @@
-# CSV to PDF Voucher Generator
+# PDF Voucher Craft
 
 A web application that converts CSV data into professionally formatted PDF vouchers. Upload your CSV file and instantly generate print-ready vouchers for bulk distribution.
 
@@ -15,8 +15,8 @@ A web application that converts CSV data into professionally formatted PDF vouch
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
-- npm or yarn package manager
+- Node.js (v16 or higher) or Bun
+- npm, yarn, or bun package manager
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
 ### Installation
@@ -24,23 +24,27 @@ A web application that converts CSV data into professionally formatted PDF vouch
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/csv-pdf-voucher-generator.git
-cd csv-pdf-voucher-generator
+git clone https://github.com/Kiruti01/PDFVOUCH.git
+cd PDFVOUCH
 ```
 
 2. Install dependencies
 
 ```bash
 npm install
+# or
+bun install
 ```
 
 3. Start the development server
 
 ```bash
 npm run dev
+# or
+bun dev
 ```
 
-4. Open your browser and navigate to `http://localhost:3000`
+4. Open your browser and navigate to `http://localhost:8080`
 
 ## Usage
 
@@ -77,72 +81,24 @@ VOUCH002,Jane Smith,100.00,2024-12-31,Service Credit
 
 ### Example CSV
 
-Download the [sample CSV template](./examples/sample_vouchers.csv) to get started quickly.
+Create a CSV file with the structure shown above to get started.
 
 ## Configuration
 
-Customize voucher appearance by editing the configuration file:
+Customize voucher appearance by editing the PDF generator utility:
 
-```javascript
-// config/voucher.config.js
-module.exports = {
-  pageSize: "A4",
-  orientation: "portrait",
-  margins: { top: 20, right: 20, bottom: 20, left: 20 },
-  font: "Helvetica",
-  colors: {
-    primary: "#2563eb",
-    secondary: "#64748b",
-    accent: "#f59e0b",
-  },
-  logo: "./assets/logo.png",
-  includeQRCode: true,
-};
+```typescript
+// src/utils/pdfGenerator.ts
+// Modify styles, fonts, colors, and layout options
 ```
-
-## API Reference
-
-### Endpoints
-
-#### POST `/api/upload`
-
-Upload CSV file for processing
-
-**Request**
-
-- Content-Type: `multipart/form-data`
-- Body: CSV file
-
-**Response**
-
-```json
-{
-  "success": true,
-  "vouchers": 25,
-  "sessionId": "abc123"
-}
-```
-
-#### GET `/api/download/:sessionId`
-
-Download generated PDF
-
-**Parameters**
-
-- `sessionId`: Session identifier from upload response
-
-**Response**
-
-- Content-Type: `application/pdf`
-- Binary PDF data
 
 ## Technologies Used
 
-- **Frontend**: React.js, TailwindCSS
-- **Backend**: Node.js, Express
-- **PDF Generation**: PDFKit / jsPDF
+- **Frontend**: React + TypeScript, Vite
+- **UI Components**: shadcn/ui, Tailwind CSS
+- **PDF Generation**: jsPDF
 - **CSV Parsing**: PapaParse
-- **File Upload**: Multer
+- **Package Manager**: Bun / npm
 
 ## Development
 
@@ -150,16 +106,14 @@ Download generated PDF
 
 ```
 ├── src/
-│   ├── components/      # React components
-│   ├── utils/          # Helper functions
-│   ├── services/       # API services
-│   └── config/         # Configuration files
-├── server/
-│   ├── routes/         # API routes
-│   ├── controllers/    # Route controllers
-│   └── middleware/     # Express middleware
+│   ├── components/      # React components (FileUpload, VoucherPreview, UI components)
+│   ├── utils/          # Utility functions (pdfGenerator.ts)
+│   ├── pages/          # Page components
+│   ├── hooks/          # Custom React hooks
+│   └── lib/            # Library utilities
 ├── public/             # Static assets
-└── tests/              # Test files
+├── vite.config.ts      # Vite configuration
+└── tailwind.config.ts  # Tailwind CSS configuration
 ```
 
 ### Running Tests
@@ -172,7 +126,11 @@ npm test
 
 ```bash
 npm run build
+# or
+bun run build
 ```
+
+The built files will be in the `dist/` directory.
 
 ## Troubleshooting
 
@@ -182,7 +140,7 @@ npm run build
 
 - Ensure your CSV uses UTF-8 encoding
 - Check that all required columns are present
-- Verify file size is under 10MB
+- For large files, processing may take a few moments
 
 **PDF Generation Errors**
 
@@ -214,9 +172,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For issues, questions, or suggestions:
 
-- Open an issue on GitHub
-- Email: support@example.com
-- Documentation: [Wiki](https://github.com/yourusername/csv-pdf-voucher-generator/wiki)
+- Open an issue on [GitHub](https://github.com/Kiruti01/PDFVOUCH/issues)
+- Documentation: [Wiki](https://github.com/Kiruti01/PDFVOUCH/wiki)
 
 ## Roadmap
 
@@ -229,9 +186,10 @@ For issues, questions, or suggestions:
 
 ## Acknowledgments
 
-- PDF generation powered by PDFKit
+- PDF generation powered by jsPDF
 - CSV parsing by PapaParse
-- Icons from Heroicons
+- UI components from shadcn/ui
+- Built with Vite and React
 
 ---
 
